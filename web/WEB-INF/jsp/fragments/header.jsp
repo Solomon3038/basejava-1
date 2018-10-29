@@ -10,7 +10,8 @@
     <div class="collapse navbar-collapse my-auto" id="navbarSupportedContent">
         <ul class="navbar-nav column-in-center">
             <li class="nav-item">
-                <h6 class="my-auto"><a href="#name" class="nav-link text-secondary" style="white-space:nowrap;">Полное имя</a></h6>
+                <h6 class="my-auto"><a href="#name" class="nav-link text-secondary" style="white-space:nowrap;">Полное
+                    имя</a></h6>
             </li>
             <li class="nav-item">
                 <h6 class="my-auto"><a href="#contacts" class="nav-link text-secondary">Контакты</a></h6>
@@ -19,7 +20,8 @@
                 <h6 class="my-auto"><a href="#OBJECTIVE" class="nav-link text-secondary">Позиция</a></h6>
             </li>
             <li class="nav-item">
-                <h6 class="my-auto"><a href="#PERSONAL" class="nav-link text-secondary" style="white-space:nowrap;">Личные качества</a></h6>
+                <h6 class="my-auto"><a href="#PERSONAL" class="nav-link text-secondary" style="white-space:nowrap;">Личные
+                    качества</a></h6>
             </li>
             <li class="nav-item">
                 <h6 class="my-auto"><a href="#ACHIEVEMENT" class="nav-link text-secondary">Достижения</a></h6>
@@ -28,16 +30,13 @@
                 <h6 class="my-auto"><a href="#QUALIFICATIONS" class="nav-link text-secondary">Квалификация</a></h6>
             </li>
             <li class="nav-item">
-                <h6 class="my-auto"><a href="#EXPERIENCE" class="nav-link text-secondary" style="white-space:nowrap;">Опыт работы</a></h6>
+                <h6 class="my-auto"><a href="#EXPERIENCE" class="nav-link text-secondary" style="white-space:nowrap;">Опыт
+                    работы</a></h6>
             </li>
             <li class="nav-item">
                 <h6 class="my-auto"><a href="#EDUCATION" class="nav-link text-secondary">Образование</a></h6>
             </li>
         </ul>
+        <a href="resume"><h5 class="my-1 mr-2" style="white-space:nowrap;color: #1CA3E6;">Все резюме</h5></a>
     </div>
-
-    <a href="resume">
-        <button type="button" class="btn ml-auto mx-2 box-shadow-grey round"><h6 class="my-1 mx-2">На главную</h6>
-        </button>
-    </a>
 </nav>
