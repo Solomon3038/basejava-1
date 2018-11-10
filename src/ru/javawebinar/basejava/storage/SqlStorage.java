@@ -1,15 +1,19 @@
 package ru.javawebinar.basejava.storage;
 
-import org.apache.commons.io.FileUtils;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.model.*;
+import ru.javawebinar.basejava.model.Category;
+import ru.javawebinar.basejava.model.ContactsType;
+import ru.javawebinar.basejava.model.Resume;
+import ru.javawebinar.basejava.model.SectionType;
 import ru.javawebinar.basejava.sql.SqlHelper;
+import ru.javawebinar.basejava.util.ImageUtil;
 import ru.javawebinar.basejava.util.JsonParser;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SqlStorage implements Storage {
     public final SqlHelper sqlHelper;
@@ -26,19 +30,7 @@ public class SqlStorage implements Storage {
     @Override
     public void clear() {
         List<Resume> allSorted = getAllSorted();
-        for (Resume resume : allSorted) {
-            String realPath = resume.getRealSavePath();
-            if (realPath != null) {
-                File file = new File(realPath);
-                if (file.exists()) {
-                    try {
-                        FileUtils.forceDelete(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
+        ImageUtil.clearAllImages(allSorted);
         sqlHelper.execute("DELETE FROM resume");
     }
 
@@ -113,19 +105,9 @@ public class SqlStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-
         Resume resume = get(uuid);
-        if (resume != null) {
-            if (resume.getRealSavePath() != null) {
-                File file = new File(resume.getRealSavePath());
-                if (file.exists()) {
-                    try {
-                        FileUtils.forceDelete(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        if (resume != null && resume.getRealSavePath() != null) {
+            ImageUtil.deleteImage(resume.getRealSavePath());
         }
         sqlHelper.execute("DELETE FROM resume WHERE uuid=?", ps -> {
             ps.setString(1, uuid);

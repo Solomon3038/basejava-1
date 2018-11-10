@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <nav class="navbar navbar-expand-lg navbar-light sticky-top rounded box-shadow-grey" style="background: white">
-    <a href="https://topjava.ru/" class="navbar-brand mx-3"><img src="img/TJ.svg" alt="logo"></a>
+    <div class="container">
     <button class="navbar-toggler my-auto" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -37,6 +37,7 @@
                 <h6 class="my-auto"><a href="#EDUCATION" class="nav-link text-secondary">Образование</a></h6>
             </li>
         </ul>
-        <a href="resume"><h5 class="my-1 mr-2" style="white-space:nowrap;color: #1CA3E6;">Все резюме</h5></a>
+        <a href="resume"><h6 class="my-1" style="white-space:nowrap; color: #234463;"><b>ВСЕ РЕЗЮМЕ</b></h6></a>
+    </div>
     </div>
 </nav>
