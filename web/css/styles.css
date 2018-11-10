@@ -64,13 +64,13 @@ h2.no-background span:after {
 }
 
 .nav-href-indent {
-    padding-top: 60px;
-    margin-top: -60px;
+    padding-top: 40px;
+    margin-top: -40px;
 }
 
 .nav-href-indent-edit {
-    padding-top: 70px;
-    margin-top: -70px;
+    padding-top: 50px;
+    margin-top: -50px;
 }
 
 .box-shadow-blue {
