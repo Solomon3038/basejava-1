@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-//
+
 //   private static final String PROPS = "/resumes.properties";
  private static final File PROPS = new File(getHomeDir(), "config\\resumes.properties");
 
@@ -26,7 +26,7 @@ public class Config {
     private Config() {
 
 //        -------------------------------------------------------------------------------------
-
+//
 //        try (InputStream is = Config.class.getResourceAsStream(PROPS)) {
 //            Properties props = new Properties();
 //            props.load(is);

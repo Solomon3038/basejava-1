@@ -7,12 +7,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-button:hover{
+button:hover {
     background-color: #1CA3E6;
     color: white;
 }
 
-input[type=text],[type=date],[type=file] {
+input[type=text], [type=date], [type=file] {
     border: 1px solid #1ECBE6;
     border-radius: 10px;
 }
@@ -23,16 +23,18 @@ textarea[type=text] {
 }
 
 h2 {
-    font: 33px sans-serif;
+    font: 20px sans-serif;
     font-family: 'Roboto', sans-serif;
     margin-top: 10px;
     text-align: center;
     text-transform: uppercase;
 }
+
 h2.no-background {
     position: relative;
     overflow: hidden;
 }
+
 h2.no-background span {
     display: inline-block;
     vertical-align: baseline;
@@ -42,20 +44,28 @@ h2.no-background span {
     position: relative;
     padding: 0 20px;
 }
+
 h2.no-background span:before,
 h2.no-background span:after {
     content: '';
     display: block;
     width: 1000px;
     position: absolute;
-    top: 0.73em;
+    top: 0.5em;
     border-top: 3px solid #1CA3E6;
 }
+
 h2.no-background span:before {
     right: 100%;
 }
+
 h2.no-background span:after {
     left: 100%;
+}
+
+h5 {
+    font-size: 16px;
+    line-height: 1.0;
 }
 
 /*remove table borders*/
@@ -110,7 +120,7 @@ h2.no-background span:after {
     border-bottom-right-radius: 10px;
 }
 
-.column-in-center{
+.column-in-center {
     float: none;
     margin: 0 auto;
 }

@@ -36,34 +36,35 @@
             </div>
 
 
-
-            <h3 class="text-center text-secondary nav-href-indent-edit" id="contacts"><b>Контакты</b></h3>
+            <h4 class="text-center text-secondary nav-href-indent-edit" id="contacts"><b>Контакты</b></h4>
             <div class="form-group">
-                <c:forEach var="type" items="<%=ContactsType.values()%>">
-                    <div class="row">
-                        <div class="col">
+                <div class="row">
+                    <c:forEach var="type" items="<%=ContactsType.values()%>">
+
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 my-3 column-in-center">
                             <label class="mx-2 my-1">${type.title}</label>
                             <input type="text" class="form-control" name="${type.name()}"
                                    value="${resume.getContacts(type)}">
                         </div>
-                    </div>
-                </c:forEach>
+
+                    </c:forEach>
+                </div>
             </div>
 
             <c:forEach var="typeSection" items="<%=SectionType.values()%>">
                 <c:if test="${typeSection.name()=='OBJECTIVE'||typeSection.name()=='PERSONAL'}">
-                    <h3 class="text-center text-secondary nav-href-indent-edit" id="${typeSection.name()}">
+                    <h4 class="text-center text-secondary nav-href-indent-edit" id="${typeSection.name()}">
                         <b>${typeSection.title}</b>
-                    </h3>
+                    </h4>
                     <div class="input-group">
                     <textarea type="text" class="form-control my-3"
                               name="${typeSection.name()}">${resume.getSections(typeSection)}</textarea>
                     </div>
                 </c:if>
                 <c:if test="${typeSection.name()=='ACHIEVEMENT'||typeSection.name()=='QUALIFICATIONS'}">
-                    <h3 class="text-center text-secondary nav-href-indent-edit" id="${typeSection.name()}">
+                    <h4 class="text-center text-secondary nav-href-indent-edit" id="${typeSection.name()}">
                         <b>${typeSection.title}</b>
-                    </h3>
+                    </h4>
 
                     <button type="button"
                             class="btn mt-3 my-3 btn-outline-primary btn-lg btn-block" style="border-radius: 10px;">
@@ -95,9 +96,9 @@
                         </c:otherwise>
                     </c:choose>
 
-                    <h3 class="text-center text-secondary nav-href-indent-edit" id="${typeSection.name()}">
+                    <h4 class="text-center text-secondary nav-href-indent-edit" id="${typeSection.name()}">
                         <b>${typeSection.title}</b>
-                    </h3>
+                    </h4>
 
                     <button type="button"
                             class="btn btn-block mt-3 my-3 btn-outline-primary btn-lg"

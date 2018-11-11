@@ -36,17 +36,18 @@
             </div>
 
 
-
             <h3 class="text-center text-secondary nav-href-indent-edit" id="contacts"><b>Контакты</b></h3>
             <div class="form-group">
-                <c:forEach var="type" items="<%=ContactsType.values()%>">
-                    <div class="row">
-                        <div class="col">
+                <div class="row">
+                    <c:forEach var="type" items="<%=ContactsType.values()%>">
+
+                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 my-3 column-in-center">
                             <label class="mx-2 my-1">${type.title}</label>
                             <input type="text" class="form-control" name="${type.name()}">
                         </div>
-                    </div>
-                </c:forEach>
+
+                    </c:forEach>
+                </div>
             </div>
 
             <c:forEach var="typeSection" items="<%=SectionType.values()%>">
@@ -104,11 +105,11 @@
                 <input type="hidden" id="positionCounter" name="positionCounter" value="0">
             </c:forEach>
 
-                   <div class="mt-4 mx-auto text-center">
-                       <h6 class="text-secondary">Максимальный размер изображения: 500kb</h6>
-                       <h6 class="text-secondary">формат файла: GIF, JPEG, JPG, PNG</h6>
-                           <h5><input type="file" class="mt-3" name="file"></h5>
-                   </div>
+            <div class="mt-4 mx-auto text-center">
+                <h6 class="text-secondary">Максимальный размер изображения: 500kb</h6>
+                <h6 class="text-secondary">формат файла: GIF, JPEG, JPG, PNG</h6>
+                <h5><input type="file" class="mt-3" name="file"></h5>
+            </div>
 
             <div class="text-center">
                 <button type="submit" class="btn my-4 mx-2 box-shadow-grey round" name="save" value="1"><h5

@@ -25,12 +25,14 @@
 
         <form action="resume" method="POST">
             <input type="hidden" name="uuid" value="${resume.uuid}">
-
-            <div class="row">
-                <div class="col-8">
-                    <h1 class="text-info" align="center"><p
-                            style="font-weight: bold;color:#1CA3E6;">${resume.fullName}</p></h1>
-
+            <h3 class="text-info" align="center"><p
+                    style="font-weight: bold;color:#1CA3E6;">${resume.fullName}</p></h3>
+            <div class="row column-in-center">
+                <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" align="left">
+                    <img class="card-img-top rounded mx-auto ml-auto" src="${resume.imagePath}"
+                         style="width: 95%;height: auto;">
+                </div>
+                <div class="col-4 col-sm-6 col-md-7 col-lg-8 col-xl-9" align="left">
                     <c:if test="${not empty resume.getSections()}">
                         <p id="contacts" class="nav-href-indent"></p>
                     </c:if>
@@ -40,44 +42,47 @@
                                  type="java.util.Map.Entry<ru.javawebinar.basejava.model.ContactsType, java.lang.String>"/>
                     <c:choose>
                     <c:when test="${contactEntry.key=='PHONE'}">
-                    <h5><i class="fa fa-phone mx-3 my-1 text-primary" aria-hidden="true"></i>
+                    <h5 style="white-space:nowrap;"><i class="fa fa-phone mx-1 text-primary" aria-hidden="true"></i>
                         </c:when>
                         <c:when test="${contactEntry.key=='MOBILE'}">
-                        <h5><font size="6"><i class="fa fa-mobile mx-3 my-1 text-primary"
-                                              aria-hidden="true"></i></font>
+                        <h5 style="white-space:nowrap;"><font size="6"><i class="fa fa-mobile mx-1 text-primary"
+                                                                          aria-hidden="true"></i></font>
                             </c:when>
                             <c:when test="${contactEntry.key=='HOME_PHONE'}">
-                            <h5><i class="fa fa-phone-square mx-3 my-1 text-primary" aria-hidden="true"></i>
+                            <h5 style="white-space:nowrap;"><i class="fa fa-phone-square mx-1 text-primary"
+                                                               aria-hidden="true"></i>
                                 </c:when>
                                 <c:when test="${contactEntry.key=='SKYPE'}">
-                                <h5><i class="fa fa-skype mx-3 text-info" aria-hidden="true"></i>
+                                <h5 style="white-space:nowrap;"><i class="fa fa-skype mx-1 text-info"
+                                                                   aria-hidden="true"></i>
                                     </c:when>
                                     <c:when test="${contactEntry.key=='MAIL'}">
-                                    <h5><i class="fa fa-envelope mx-3 my-1 text-warning" aria-hidden="true"></i>
+                                    <h5 style="white-space:nowrap;"><i class="fa fa-envelope mx-1 text-warning"
+                                                                       aria-hidden="true"></i>
                                         </c:when>
                                         <c:when test="${contactEntry.key=='LINKEDIN'}">
-                                        <h5><i class="fa fa-linkedin-square mx-3 my-1 text-primary"
-                                               aria-hidden="true"></i>
+                                        <h5 style="white-space:nowrap;"><i
+                                                class="fa fa-linkedin-square mx-1 text-primary"
+                                                aria-hidden="true"></i>
                                             </c:when>
                                             <c:when test="${contactEntry.key=='GITHUB'}">
-                                            <h5><i class="fa fa-github-alt mx-3 my-1" aria-hidden="true"></i>
+                                            <h5 style="white-space:nowrap;"><i class="fa fa-github-alt mx-1"
+                                                                               aria-hidden="true"></i>
                                                 </c:when>
                                                 <c:when test="${contactEntry.key=='STACKOVERFLOW'}">
-                                                <h5><i class="fa fa-stack-overflow mx-3 my-1 text-danger"
-                                                       aria-hidden="true"></i>
+                                                <h5 style="white-space:nowrap;"><i
+                                                        class="fa fa-stack-overflow mx-1 text-danger"
+                                                        aria-hidden="true"></i>
                                                     </c:when>
                                                     <c:when test="${contactEntry.key=='HOME_PAGE'}">
-                                                    <h5><i class="fa fa-link mx-3 my-1 text-primary"
-                                                           aria-hidden="true"></i>
+                                                    <h5 style="white-space:nowrap;"><i
+                                                            class="fa fa-link mx-1 text-primary"
+                                                            aria-hidden="true"></i>
                                                         </c:when>
                                                         </c:choose>
                                                         <%=contactEntry.getKey().toHtml(contactEntry.getValue())%>
                                                     </h5>
                                                     </c:forEach>
-                </div>
-                <div class="col-4">
-                    <img class="card-img-top rounded mx-auto ml-auto" src="${resume.imagePath}"
-                         style="width:95%;height:auto;">
                 </div>
             </div>
             <c:forEach var="sectionEntry" items="${resume.sections}">

@@ -76,8 +76,7 @@ public class ResumeServlet extends HttpServlet {
                         default:
                             if (fieldName.equals("organizationCounter") || fieldName.equals("positionCounter")) {
                                 int counter = Integer.valueOf(fieldValue);
-                                fieldValue = setMaxCounter(map, fieldValue, counter, "organizationCounter");
-                                fieldValue = setMaxCounter(map, fieldValue, counter, "positionCounter");
+                                fieldValue = setMaxCounter(map, fieldValue, counter, fieldName);
                             }
                             if (fieldName.equals("MAIL") && fieldValue.trim().length() == 0) {
                                 fieldValue = "empty@mail";
@@ -91,7 +90,6 @@ public class ResumeServlet extends HttpServlet {
                     String fileName = fi.getName();
                     final String uuidForNameImage = map.get("uuid");
                     String uuidName = uuidForNameImage.equals("new") ? uuid : uuidForNameImage;
-
                     String uuidFileName = ImageUtil.getUuidForFileName(fileName, uuidName);
 
                     if (uuidFileName != null) {
@@ -254,8 +252,9 @@ public class ResumeServlet extends HttpServlet {
     }
 
     private String setMaxCounter(Map<String, String> map, String fieldValue, int counter, String curentOrgCounter) {
-        if (map.get(curentOrgCounter) != null) {
-            int counterOrg = Integer.valueOf(map.get(curentOrgCounter));
+        String curentCounterValue = map.get(curentOrgCounter);
+        if (curentCounterValue != null) {
+            int counterOrg = Integer.valueOf(curentCounterValue);
             if (counterOrg > counter) {
                 fieldValue = String.valueOf(counterOrg);
             }
