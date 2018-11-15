@@ -56,12 +56,10 @@ public class ImageUtil {
     public static void checkImageInFolder(Resume resume) {
         String realPath = resume.getRealSavePath();
         if (realPath != null) {
-            if (resume.getImagePath().substring(4, 40).equals(resume.getUuid())) {
-                File file = new File(realPath);
-                if (!file.exists()) {
-                    resume.setRealSavePath(null);
-                    resume.setImagePath("img/user.jpg");
-                }
+            File file = new File(realPath);
+            if (!file.exists()) {
+                resume.setRealSavePath(null);
+                resume.setImagePath("img/user.jpg");
             }
         }
     }
