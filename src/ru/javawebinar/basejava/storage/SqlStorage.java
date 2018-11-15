@@ -62,6 +62,8 @@ public class SqlStorage implements Storage {
                     addSection(rs, resume);
                 }
             }
+            ImageUtil.checkImageInFolder(resume);
+            update(resume);
             return resume;
         });
     }
