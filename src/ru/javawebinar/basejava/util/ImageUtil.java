@@ -53,14 +53,16 @@ public class ImageUtil {
         }
     }
 
-    public static void checkImageInFolder(Resume resume) {
+    public static Boolean isImageInFolder(Resume resume) {
         String realPath = resume.getRealSavePath();
         if (realPath != null) {
             File file = new File(realPath);
             if (!file.exists()) {
                 resume.setRealSavePath(null);
                 resume.setImagePath("img/user.jpg");
+                return false;
             }
         }
+        return true;
     }
 }
