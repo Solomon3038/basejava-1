@@ -46,7 +46,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() {
-        Resume newResume = new Resume(UUID_1, "New Name","img/user.jpg",null);
+        Resume newResume = new Resume(UUID_1, "New Name");
         newResume.addContact(ContactsType.STACKOVERFLOW, "STACKOVERFLOW");
         newResume.addCategory(SectionType.PERSONAL, new StringCategory("Personal dataNEW"));
         newResume.addCategory(SectionType.ACHIEVEMENT, new ListCategory("AchivmentNEW", "AchivmentNEW", "AchivmentNEW"));
@@ -56,7 +56,7 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
-        storage.update(new Resume("dummy","img/user.jpg",null));
+        storage.update(new Resume("dummy","123"));
     }
 
     @Test

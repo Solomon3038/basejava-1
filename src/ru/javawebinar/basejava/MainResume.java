@@ -13,7 +13,7 @@ public class MainResume {
 
     public static void main(String[] args) {
 
-        Resume resume = new Resume("uuid1", "Ирина Грыцюк","img/user.jpg",null);
+        Resume resume = new Resume("uuid1", "Ирина Грыцюк");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LL/yyyy");
         Organization expOrg1 = new Organization(
                 new Link("Работа 1", "http://javaops.ru/reg/basejava/1"),
@@ -36,17 +36,16 @@ public class MainResume {
                         LocalDate.of(2018, Month.SEPTEMBER, 05), "студент заочно", null))));
         List<Organization> listEdu = new ArrayList<>(Arrays.asList(eduOrg1, eduOrg2));
 
-        resume.addContact(ContactsType.PHONE,"+3801235467");
-        resume.addContact(ContactsType.SKYPE, "gagarina6794");
-        resume.addCategory(SectionType.OBJECTIVE, new StringCategory("Junior Java Developer"));
-        resume.addCategory(SectionType.PERSONAL, new StringCategory("Аналитический склад ума"));
-        resume.addCategory(SectionType.ACHIEVEMENT, new ListCategory(new ArrayList<>(Arrays.asList("Пока только бухгалтерские", "и спортивные)"))));
-        resume.addCategory(SectionType.QUALIFICATIONS, new ListCategory(new ArrayList<>(Arrays.asList("Java junior", "Bookkeeper"))));
-        resume.addCategory(SectionType.EXPERIENCE, new OrganizationsCategory(listExp));
-        resume.addCategory(SectionType.EDUCATION, new OrganizationsCategory(listEdu));
-    }
-    /*
-    System.out.println(resume.getFullName());
+        resume.getContacts().put(ContactsType.PHONE, "+3801235467");
+        resume.getContacts().put(ContactsType.SKYPE, "gagarina6794");
+        resume.getSections().put(SectionType.OBJECTIVE, new StringCategory("Junior Java Developer"));
+        resume.getSections().put(SectionType.PERSONAL, new StringCategory("Аналитический склад ума"));
+        resume.getSections().put(SectionType.ACHIEVEMENT, new ListCategory(new ArrayList<>(Arrays.asList("Пока только бухгалтерские", "и спортивные)"))));
+        resume.getSections().put(SectionType.QUALIFICATIONS, new ListCategory(new ArrayList<>(Arrays.asList("Java junior", "Bookkeeper"))));
+        resume.getSections().put(SectionType.EXPERIENCE, new OrganizationsCategory(listExp));
+        resume.getSections().put(SectionType.EDUCATION, new OrganizationsCategory(listEdu));
+
+        System.out.println(resume.getFullName());
         System.out.println("-------------------------");
         resume.getContacts().forEach((k, v) -> System.out.println("* " + k.getTitle() + " " + v));
         System.out.println("________________________________");
@@ -81,5 +80,4 @@ public class MainResume {
                             System.out.println(y.getStartDate().format(formatter) + " " + y.getEndDate().format(formatter) + " " +
                                     y.getTitle())); });
     }
-     */
 }

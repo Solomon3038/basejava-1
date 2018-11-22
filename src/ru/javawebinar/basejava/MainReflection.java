@@ -10,7 +10,7 @@ public class MainReflection {
 
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
-        Resume resume = new Resume("name","image","img/user.jpg",null);
+        Resume resume = new Resume("name");
         Field field = resume.getClass().getDeclaredFields()[0];
         Method method = Resume.class.getMethod("toString");
 

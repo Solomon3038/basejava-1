@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -14,8 +15,7 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     private String uuid;
     private String fullName;
-    private String imagePath;
-    private String realSavePath;
+    private byte[] bytes;
 
     private final Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
     private final Map<SectionType, Category> sections = new EnumMap<>(SectionType.class);
@@ -23,18 +23,15 @@ public class Resume implements Comparable<Resume>, Serializable {
     public Resume() {
     }
 
-    public Resume(String fullName, String imagePath,String realSavePath) {
-        this(UUID.randomUUID().toString(), fullName, imagePath,realSavePath);
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
     }
 
-    public Resume(String uuid, String fullName, String imagePath,String realSavePath) {
+    public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
-        Objects.requireNonNull(imagePath, "imagePath path must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-        this.imagePath = imagePath;
-        this.realSavePath = realSavePath;
     }
 
     public String getUuid() {
@@ -49,20 +46,12 @@ public class Resume implements Comparable<Resume>, Serializable {
         this.fullName = fullName;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public byte[] getBytes() {
+        return bytes;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public String getRealSavePath() {
-        return realSavePath;
-    }
-
-    public void setRealSavePath(String realSavePath) {
-        this.realSavePath = realSavePath;
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
     }
 
     public Category getSections(SectionType type) {

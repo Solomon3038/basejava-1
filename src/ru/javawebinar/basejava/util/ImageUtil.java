@@ -1,68 +1,20 @@
 package ru.javawebinar.basejava.util;
 
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.FileUtils;
-import ru.javawebinar.basejava.model.Resume;
-
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
 
 public class ImageUtil {
 
-    public static void saveImage(FileItem fi, String realSavePath) throws Exception {
-        File file = new File(realSavePath);
-        fi.write(file);
-    }
+    public static byte[] getBytesFromInputStream(InputStream is) throws IOException {
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream();) {
+            byte[] buffer = new byte[0xFFFF];
 
-    public static String getUuidForFileName(String fileName, String uuidName) {
-        if (fileName.toUpperCase().endsWith(".GIF") ||
-                fileName.toUpperCase().endsWith(".PNG") ||
-                fileName.toUpperCase().endsWith(".JPG")) {
-            return uuidName + fileName.substring(fileName.length() - 4);
-        } else if (fileName.toUpperCase().endsWith(".JPEG")) {
-            return uuidName + fileName.substring(fileName.length() - 5);
-        }
-        return null;
-    }
+            for (int len; (len = is.read(buffer)) != -1; )
+                os.write(buffer, 0, len);
+            os.flush();
 
-    public static void deleteImage(String pathForDelete) {
-        File file = new File(pathForDelete);
-        if (file.exists()) {
-            try {
-                FileUtils.forceDelete(file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            return os.toByteArray();
         }
-    }
-
-    public static void clearAllImages(List<Resume> allSorted) {
-        for (Resume resume : allSorted) {
-            String realPath = resume.getRealSavePath();
-            if (realPath != null) {
-                File file = new File(realPath);
-                if (file.exists()) {
-                    try {
-                        FileUtils.forceDelete(file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
-    public static Boolean isImageInFolder(Resume resume) {
-        String realPath = resume.getRealSavePath();
-        if (realPath != null) {
-            File file = new File(realPath);
-            if (!file.exists()) {
-                resume.setRealSavePath(null);
-                resume.setImagePath("img/user.jpg");
-                return false;
-            }
-        }
-        return true;
     }
 }

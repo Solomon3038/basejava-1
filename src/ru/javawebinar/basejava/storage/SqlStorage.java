@@ -6,7 +6,6 @@ import ru.javawebinar.basejava.model.ContactsType;
 import ru.javawebinar.basejava.model.Resume;
 import ru.javawebinar.basejava.model.SectionType;
 import ru.javawebinar.basejava.sql.SqlHelper;
-import ru.javawebinar.basejava.util.ImageUtil;
 import ru.javawebinar.basejava.util.JsonParser;
 
 import java.sql.*;
@@ -29,8 +28,6 @@ public class SqlStorage implements Storage {
 
     @Override
     public void clear() {
-        List<Resume> allSorted = getAllSorted();
-        ImageUtil.clearAllImages(allSorted);
         sqlHelper.execute("DELETE FROM resume");
     }
 
@@ -44,7 +41,7 @@ public class SqlStorage implements Storage {
                 if (!rs.next()) {
                     throw new NotExistStorageException(uuid);
                 }
-                resume = new Resume(uuid, rs.getString("full_name"), rs.getString("image_path"), rs.getString("real_save_path"));
+                resume = new Resume(uuid, rs.getString("full_name"));
             }
 
             try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact WHERE resume_uuid =?")) {
@@ -62,8 +59,14 @@ public class SqlStorage implements Storage {
                     addSection(rs, resume);
                 }
             }
-            if (!ImageUtil.isImageInFolder(resume)) {
-                update(resume);
+
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM files WHERE resume_uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                if (!rs.next()) {
+                    throw new NotExistStorageException(uuid);
+                }
+                resume.setBytes(rs.getBytes("image"));
             }
             return resume;
         });
@@ -72,19 +75,19 @@ public class SqlStorage implements Storage {
     @Override
     public void update(Resume resume) {
         sqlHelper.transactionalExecute(conn -> {
-            try (PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? , image_path = ? , real_save_path = ? WHERE uuid = ?")) {
+            try (PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?")) {
                 ps.setString(1, resume.getFullName());
-                ps.setString(2, resume.getImagePath());
-                ps.setString(3, resume.getRealSavePath());
-                ps.setString(4, resume.getUuid());
+                ps.setString(2, resume.getUuid());
                 if (ps.executeUpdate() != 1) {
                     throw new NotExistStorageException(resume.getUuid());
                 }
             }
             deleteContacts(conn, resume);
             deleteSections(conn, resume);
+            deleteFiles(conn,resume);
             insertContacts(conn, resume);
             insertSections(conn, resume);
+            insertImage(conn, resume);
             return null;
         });
     }
@@ -92,15 +95,14 @@ public class SqlStorage implements Storage {
     @Override
     public void save(Resume resume) {
         sqlHelper.transactionalExecute(conn -> {
-                    try (PreparedStatement ps = conn.prepareStatement("INSERT INTO resume (uuid, full_name, image_path, real_save_path) VALUES (?,?,?,?)")) {
+                    try (PreparedStatement ps = conn.prepareStatement("INSERT INTO resume (uuid, full_name) VALUES (?,?)")) {
                         ps.setString(1, resume.getUuid());
                         ps.setString(2, resume.getFullName());
-                        ps.setString(3, resume.getImagePath());
-                        ps.setString(4, resume.getRealSavePath());
                         ps.execute();
                     }
                     insertContacts(conn, resume);
                     insertSections(conn, resume);
+                    insertImage(conn, resume);
                     return null;
                 }
         );
@@ -108,10 +110,6 @@ public class SqlStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        Resume resume = get(uuid);
-        if (resume != null && resume.getRealSavePath() != null) {
-            ImageUtil.deleteImage(resume.getRealSavePath());
-        }
         sqlHelper.execute("DELETE FROM resume WHERE uuid=?", ps -> {
             ps.setString(1, uuid);
             if (ps.executeUpdate() == 0) {
@@ -130,7 +128,7 @@ public class SqlStorage implements Storage {
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     String uuid = rs.getString("uuid");
-                    resumes.put(uuid, new Resume(uuid, rs.getString("full_name"), rs.getString("image_path"), rs.getString("real_save_path")));
+                    resumes.put(uuid, new Resume(uuid, rs.getString("full_name")));
                 }
             }
 
@@ -149,6 +147,16 @@ public class SqlStorage implements Storage {
                     addSection(rs, resume);
                 }
             }
+
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM files")) {
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Resume resume = resumes.get(rs.getString("resume_uuid"));
+                    byte[] bytes = rs.getBytes("image");
+                    resume.setBytes(bytes);
+                }
+            }
+
             return new ArrayList<>(resumes.values());
         });
     }
@@ -186,12 +194,25 @@ public class SqlStorage implements Storage {
         }
     }
 
+    private void insertImage(Connection conn, Resume r) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO files (resume_uuid, image) VALUES (?,?)")) {
+            ps.setString(1, r.getUuid());
+            ps.setBytes(2, r.getBytes());
+            ps.addBatch();
+            ps.executeBatch();
+        }
+    }
+
     private void deleteContacts(Connection conn, Resume resume) throws SQLException {
         deleteAttributes(conn, resume, "DELETE  FROM contact WHERE resume_uuid=?");
     }
 
     private void deleteSections(Connection conn, Resume resume) throws SQLException {
         deleteAttributes(conn, resume, "DELETE  FROM category WHERE resume_uuid=?");
+    }
+
+    private void deleteFiles(Connection conn, Resume resume) throws SQLException {
+        deleteAttributes(conn, resume, "DELETE  FROM files WHERE resume_uuid=?");
     }
 
     private void deleteAttributes(Connection conn, Resume resume, String sql) throws SQLException {

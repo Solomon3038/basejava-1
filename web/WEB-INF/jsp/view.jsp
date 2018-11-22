@@ -1,5 +1,6 @@
 <%@ page import="java.time.LocalDate" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
+<%@ page import="java.io.ByteArrayInputStream" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -30,7 +31,7 @@
                     style="font-weight: bold;color:#1CA3E6;">${resume.fullName}</p></h3>
             <div class="row column-in-center">
                 <div class="col-8 col-sm-6 col-md-5 col-lg-4 col-xl-3" align="left">
-                    <img class="card-img-top rounded mx-auto ml-auto" src="${resume.imagePath}"
+                    <img class="card-img-top rounded mx-auto ml-auto" src="data:image/jpg;base64,${imageFile}"
                          style="width: 95%;height: auto;">
                 </div>
                 <div class="col-4 col-sm-6 col-md-7 col-lg-8 col-xl-9" align="left">

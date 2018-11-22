@@ -56,7 +56,7 @@ public class DataStrategy implements SerializationStrategy {
         try (DataInputStream dis = new DataInputStream(is)) {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
-            Resume resume = new Resume(uuid, fullName,"img/user.jpg",null);
+            Resume resume = new Resume(uuid, fullName);
             int sizeContacts = dis.readInt();
             for (int i = 0; i < sizeContacts; i++) {
                 resume.addContact(ContactsType.valueOf(dis.readUTF()), dis.readUTF());

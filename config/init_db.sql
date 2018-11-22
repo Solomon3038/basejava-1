@@ -3,9 +3,7 @@ create table if not exists resume
   uuid      char(36) not null
     constraint resume_pkey
     primary key,
-  full_name varchar  not null,
-  image_path     varchar,
-  real_save_path varchar
+  full_name varchar  not null
 );
 
 create table if not exists category
@@ -39,3 +37,17 @@ create table if not exists contact
 
 create unique index if not exists contact_uuid_type_index
   on contact (resume_uuid, type);
+
+create table if not exists files
+(
+  id          serial   not null
+    constraint files_pkey
+    primary key,
+  resume_uuid char(36) not null
+    constraint files_resume_uuid_fk
+    references resume
+    on delete cascade,
+  image       bytea
+);
+
+CREATE UNIQUE INDEX if not exists files_resume_uuid_uindex ON public.files (resume_uuid);
