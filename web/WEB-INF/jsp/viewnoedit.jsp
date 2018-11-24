@@ -166,6 +166,3 @@
 
 </body>
 </html>
-<%--<jsp:include page="fragments/header.jsp"/>--%>
-<%--<a href="resume?uuid=${resume.uuid}&action=noedit" class="btn btn-add">Редактировать</a>--%>
-<%--<jsp:include page="fragments/footer.jsp"/>--%>

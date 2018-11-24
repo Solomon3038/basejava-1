@@ -239,7 +239,7 @@
             <div class="mt-4 mx-auto text-center">
                 <h6 class="text-secondary">Максимальный размер изображения: 500kb</h6>
                 <h6 class="text-secondary">формат файла: GIF, JPEG, JPG, PNG</h6>
-                <h5><input type="file" class="mt-3" name="file"></h5>
+                <h5><input type="file" class="mt-3" name="photo"></h5>
             </div>
 
             <div class="text-center">

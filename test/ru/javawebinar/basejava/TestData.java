@@ -32,7 +32,7 @@ public class TestData {
         R3 = new Resume(UUID_3, "Name3");
         R4 = new Resume(UUID_4, "Name4");
 
-        byte[] bytesFromInputStream = null;
+        byte[] bytesFromInputStream;
         List<Path> collect = new ArrayList<>();
         try {
             collect = Files.walk(Paths.get("C://mybasejava//basejava//src//img"))
@@ -43,7 +43,7 @@ public class TestData {
         }
         File initialFile = collect.get(1).toFile();
         File initialFileGrigoriy = collect.get(0).toFile();
-        
+
         try {
             InputStream inputStream = new FileInputStream(initialFile);
             bytesFromInputStream = getBytesFromInputStream(inputStream);
